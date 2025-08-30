@@ -1,0 +1,69 @@
+/* Add CSS styles for your web site here and use them in index.html. */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #333;
+}
+
+header {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.order-form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.order-form h2 {
+  margin-bottom: 1rem;
+}
+
+.order-form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.order-form input,
+.order-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 1.5rem;
+  background: #0077cc;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background: #005fa3;
+}
+
+#statusMessage {
+  margin-top: 1rem;
+  font-weight: bold;
+}

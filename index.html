@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sugar Love Bakery</title>
+
+  <!-- ===== Style (keeps the warm brown/gold theme) ===== -->
+  <style>
+    :root{
+      --bg:#fdf8f5;
+      --ink:#5a3e2b;
+      --gold:#d9b382;
+      --gold-dark:#b2895b;
+      --panel:#fff7f0;
+      --line:#e9d8c2;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: system-ui, Arial, sans-serif;
+      background:var(--bg); color:var(--ink);
+    }
+    header{
+      background:var(--gold);
+      color:#fff; text-align:center; padding:28px 16px;
+    }
+    header h1{margin:0; font-size:2rem; letter-spacing:.5px}
+    header p{margin:6px 0 0; opacity:.95}
+
+    nav{background:var(--gold-dark); text-align:center; padding:10px}
+    nav a{color:#fff; text-decoration:none; font-weight:700; margin:0 14px}
+
+    .container{width:92%; max-width:1100px; margin:26px auto}
+
+    h2{margin:0 0 14px}
+    .muted{opacity:.85}
+
+    /* Menu table */
+    table{width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line)}
+    th,td{padding:10px; border:1px solid var(--line); text-align:center}
+    th{background:#f2e3d0}
+
+    /* Flavor list */
+    .flavors{
+      display:grid; gap:14px; grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+      margin:18px 0 34px;
+    }
+    .flavor-card{
+      background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px;
+    }
+    .flavor-card h3{margin:.2rem 0 .4rem; font-size:1.05rem; color:#7a583f}
+    .flavor-card ul{margin:.2rem 0 0 1rem; padding:0}
+    .flavor-card li{margin:.25rem 0}
+
+    /* Gallery */
+    .product-gallery{
+      display:grid; gap:18px; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+      margin:22px 0 38px;
+    }
+    .product-card{
+      background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px; text-align:center;
+    }
+    .product-card img{
+      width:100%; height:160px; object-fit:cover; border-radius:8px; background:#faf7f2;
+    }
+    .product-card h3{margin:10px 0 4px}
+    .product-card p{margin:0; color:#8a6a4c; font-weight:600}
+
+    /* Order form */
+    .order-form{
+      background:var(--panel); border:1px solid var(--gold); border-radius:12px; padding:20px;
+    }
+    .order-grid{display:grid; gap:14px; grid-template-columns:repeat(auto-fit, minmax(220px,1fr))}
+    label{font-weight:600}
+    input[type=text],input[type=email],input[type=number],select,textarea{
+      width:100%; margin-top:6px; padding:10px; border:1px solid #ccc; border-radius:8px;
+      background:#fff;
+    }
+    textarea{min-height:90px; resize:vertical}
+    .pill{
+      display:inline-block; padding:6px 10px; background:#fff; border:1px dashed var(--gold-dark);
+      border-radius:999px; font-weight:700; margin-top:6px;
+    }
+    .total{
+      font-size:1.15rem; font-weight:800; color:#7a583f; margin-top:4px;
+    }
+    .btn{
+      background:var(--gold-dark); color:#fff; border:0; padding:12px 16px; border-radius:10px;
+      font-weight:800; cursor:pointer;
+    }
+    .btn:hover{filter:brightness(.95)}
+    .note{font-size:.92rem; color:#7b6a58}
+
+    footer{
+      margin:40px 0 0; background:var(--gold); color:#fff; text-align:center; padding:14px;
+    }
+    .center{text-align:center}
+  </style>
+
+  <!-- ===== EmailJS SDK ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){ emailjs.init("Q8ymmWtxkCCPEBPVu"); })(); // your Public Key
+  </script>
+</head>
+<body>
+
+  <header>
+    <h1>Sugar Love</h1>
+    <p>Delivery Only • Cash or Zelle</p>
+  </header>
+
+  <nav>
+    <a href="#menu">Menu</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#order">Order</a>
+    <a href="https://www.instagram.com/_sugarlove_official/" target="blank" rel="nnopener noreferrer">Instagram</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- ===== Menu & Prices (matches poster) ===== -->
+    <section id="menu">
+      <h2>Menu & Prices</h2>
+      <p class="muted">Prices are per single serve or by box size.</p>
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Single Serve</th>
+          <th>4-count Box</th>
+          <th>12-count Box</th>
+          <th>24-count Box</th>
+        </tr>
+        <tr><td>Cookies</td><td>$1.50</td><td>$5.00</td><td>$13.00</td><td>$25.00</td></tr>
+        <tr><td>Mini Pies</td><td>$2.00</td><td>$8.00</td><td>$20.00</td><td>$35.00</td></tr>
+        <tr><td>Rice Krispy Treat</td><td>$4.00</td><td>$14.00</td><td>$40.00</td><td>$85.00</td></tr>
+        <tr><td>Muffins</td><td>$5.00</td><td>$15.00</td><td>$50.00</td><td>$100.00</td></tr>
+        <tr><td>Cake (Cake Cups)</td><td>$8.00</td><td>$20.00</td><td>$75.00</td><td>$170.00</td></tr>
+        <tr><td>Cheesecake</td><td>$9.00</td><td>$25.00</td><td>$90.00</td><td>$190.00</td></tr>
+        <tr><td>Variety</td><td>N/A</td><td>$15.00</td><td>$55.00</td><td>$120.00</td></tr>
+      </table>
+
+      <!-- Flavors exactly as on the poster -->
+      <div class="flavors">
+        <div class="flavor-card">
+          <h3>Cookies</h3>
+          <ul>
+            <li>Chocolate Chip</li>
+            <li>Cookies and Cream</li>
+            <li>Caramel Apple</li>
+            <li>Pumpkin Chocolate Chip</li>
+          </ul>
+        </div>
+        <div class="flavor-card">
+          <h3>Mini Pies</h3>
+          <ul>
+            <li>Apple</li>
+            <li>Pumpkin</li>
+            <li>Blueberry</li>
+          </ul>
+        </div>
+        <div class="flavor-card">
+          <h3>Rice Krispy Treats</h3>
+          <ul>
+            <li>Plain</li>
+            <li>Chocolate Topped</li>
+            <li>Cookies and Cream</li>
+            <li>Chocolate Covered Butterscotch</li>
+          </ul>
+        </div>
+        <div class="flavor-card">
+          <h3>Muffins</h3>
+          <ul>
+            <li>Chocolate Chip</li>
+            <li>Blueberry</li>
+            <li>Pumpkin Chocolate Chip</li>
+            <li>Coffee Cake</li>
+          </ul>
+        </div>
+        <div class="flavor-card">
+          <h3>Cake Cups</h3>
+          <ul>
+            <li>Vanilla</li>
+            <li>Chocolate</li>
+            <li>Tres Leches</li>
+            <li>Pumpkin</li>
+          </ul>
+        </div>
+        <div class="flavor-card">
+          <h3>Cheesecake Slices</h3>
+          <ul>
+            <li>Regular</li>
+            <li>Strawberry Swirl</li>
+            <li>Chocolate Drizzle</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Gallery (swap images with your own) ===== -->
+    <section id="gallery" class="product-gallery">
+      <div class="product-card">
+        <img src="images/cookies.jpg" alt="Cookies" />
+        <h3>Cookies</h3>
+        <p>from $1.50</p>
+      </div>
+      <div class="product-card">
+        <img src="images/mini-pies.jpg" alt="Mini Pies" />
+        <h3>Mini Pies</h3>
+        <p>from $2.00</p>
+      </div>
+      <div class="product-card">
+        <img src="images/rice-krispy.jpg" alt="Rice Krispy Treats" />
+        <h3>Rice Krispy Treats</h3>
+        <p>from $4.00</p>
+      </div>
+      <div class="product-card">
+        <img src="images/muffins.jpg" alt="Muffins" />
+        <h3>Muffins</h3>
+        <p>from $5.00</p>
+      </div>
+      <div class="product-card">
+        <img src="images/cake-cups.jpg" alt="Cake Cups" />
+        <h3>Cake (Cake Cups)</h3>
+        <p>from $8.00</p>
+      </div>
+      <div class="product-card">
+        <img src="images/cheesecake.jpg" alt="Cheesecake" />
+        <h3>Cheesecake</h3>
+        <p>from $9.00</p>
+      </div>
+    </section>
+
+    <!-- ===== Order Form (EmailJS integrated) ===== -->
+    <section id="order" class="order-form">
+      <h2 class="center">Place Your Order</h2>
+      <p class="note center">We’ll confirm delivery & payment (Cash or Zelle) by email.</p>
+
+      <form id="orderForm">
+        <!-- Contact & delivery -->
+        <div class="order-grid">
+          <div>
+            <label for="from_name">Full Name</label>
+            <input type="text" id="from_name" name="from_name" required />
+          </div>
+          <div>
+            <label for="reply_to">Email</label>
+            <input type="email" id="reply_to" name="reply_to" required />
+          </div>
+          <div style="grid-column:1/-1">
+            <label for="address">Delivery Address</label>
+            <textarea id="address" name="address" required placeholder="Street, City, Zip"></textarea>
+          </div>
+        </div>
+
+        <!-- Item selection -->
+        <hr style="border:0; border-top:1px solid var(--line); margin:16px 0">
+        <div class="order-grid">
+          <div>
+            <label for="item">Item</label>
+            <select id="item" name="item" required>
+              <option value="cookies">Cookies</option>
+              <option value="mini_pies">Mini Pies</option>
+              <option value="rice_krispy_treat">Rice Krispy Treat</option>
+              <option value="muffins">Muffins</option>
+              <option value="cake_cups">Cake (Cake Cups)</option>
+              <option value="cheesecake_slices">Cheesecake</option>
+              <option value="variety">Variety</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="flavor">Flavor</label>
+            <select id="flavor" name="flavor" required></select>
+          </div>
+
+          <div>
+            <label for="pkg">Package Size</label>
+            <select id="pkg" name="package" required></select>
+          </div>
+
+          <div>
+            <label for="qty">Quantity (packages)</label>
+            <input type="number" id="qty" name="quantity" min="1" value="1" required />
+          </div>
+
+          <div style="grid-column:1/-1">
+            <span class="pill">Unit Price: <span id="unitPrice">$0.00</span></span>
+            <div class="total">Total: <span id="total">$0.00</span></div>
+          </div>
+
+          <div style="grid-column:1/-1">
+            <label for="notes">Notes (optional)</label>
+            <textarea id="notes" name="notes" placeholder="Allergies, delivery instructions, etc."></textarea>
+          </div>
+        </div>
+
+        <div class="center" style="margin-top:12px">
+          <button class="btn" type="submit">Order Here</button>
+          <div id="orderMessage" class="note" style="margin-top:10px"></div>
+        </div>
+
+        <!-- Hidden total field so it goes into the email -->
+        <input type="hidden" id="total_field" name="total" value="0.00" />
+      </form>
+    </section>
+  </div>
+
+  <footer>
+    © 2025 Sugar Love. All Rights Reserved.
+  </footer>
+
+  <!-- ===== Behavior (flavors, pricing, EmailJS send) ===== -->
+  <script>
+    // Prices from your poster
+    const PRICES = {
+      cookies:            { single: 1.50, box4: 5.00,  box12: 13.00, box24: 25.00 },
+      mini_pies:          { single: 2.00, box4: 8.00,  box12: 20.00, box24: 35.00 },
+      rice_krispy_treat:  { single: 4.00, box4: 14.00, box12: 40.00, box24: 85.00 },
+      muffins:            { single: 5.00, box4: 15.00, box12: 50.00, box24: 100.00 },
+      cake_cups:          { single: 8.00, box4: 20.00, box12: 75.00, box24: 170.00 },
+      cheesecake_slices:  { single: 9.00, box4: 25.00, box12: 90.00, box24: 190.00 },
+      variety:            { single: null, box4: 15.00, box12: 55.00, box24: 120.00 }
+    };
+
+    // Flavors from your poster
+    const FLAVORS = {
+      cookies:           ["Chocolate Chip","Cookies and Cream","Caramel Apple","Pumpkin Chocolate Chip"],
+      mini_pies:         ["Apple","Pumpkin","Blueberry"],
+      rice_krispy_treat: ["Plain","Chocolate Topped","Cookies and Cream","Chocolate Covered Butterscotch"],
+      muffins:           ["Chocolate Chip","Blueberry","Pumpkin Chocolate Chip","Coffee Cake"],
+      cake_cups:         ["Vanilla","Chocolate","Tres Leches","Pumpkin"],
+      cheesecake_slices: ["Regular","Strawberry Swirl","Chocolate Drizzle"],
+      variety:           ["Assorted"]
+    };
+
+    const ITEM_LABELS = {
+      cookies:"Cookies", mini_pies:"Mini Pies", rice_krispy_treat:"Rice Krispy Treat",
+      muffins:"Muffins", cake_cups:"Cake (Cake Cups)", cheesecake_slices:"Cheesecake", variety:"Variety"
+    };
+
+    const itemEl   = document.getElementById('item');
+    const flavorEl = document.getElementById('flavor');
+    const pkgEl    = document.getElementById('pkg');
+    const qtyEl    = document.getElementById('qty');
+    const unitEl   = document.getElementById('unitPrice');
+    const totalEl  = document.getElementById('total');
+    const totalField = document.getElementById('total_field');
+
+    function money(n){ return `$${(n ?? 0).toFixed(2)}`; }
+
+    function populateFlavors(itemKey){
+      flavorEl.innerHTML = '';
+      FLAVORS[itemKey].forEach(f=>{
+        const opt = document.createElement('option');
+        opt.value = f; opt.textContent = f;
+        flavorEl.appendChild(opt);
+      });
+    }
+
+    function populatePackages(itemKey){
+      pkgEl.innerHTML = '';
+      const map = [
+        ['single','Single Serve'],
+        ['box4','4-count Box'],
+        ['box12','12-count Box'],
+        ['box24','24-count Box'],
+      ];
+      map.forEach(([k,label])=>{
+        const price = PRICES[itemKey][k];
+        if(price === null) return; // hide N/A (Variety single)
+        const opt = document.createElement('option');
+        opt.value = k; opt.textContent = `${label} — ${money(price)}`;
+        pkgEl.appendChild(opt);
+      });
+    }
+
+    function updateTotals(){
+      const itemKey = itemEl.value;
+      const pkgKey  = pkgEl.value;
+      const qty     = Math.max(1, parseInt(qtyEl.value || '1',10));
+      const unit    = PRICES[itemKey][pkgKey] ?? 0;
+      const total   = unit * qty;
+      unitEl.textContent = money(unit);
+      totalEl.textContent = money(total);
+      totalField.value = total.toFixed(2);
+    }
+
+    itemEl.addEventListener('change', ()=>{
+      populateFlavors(itemEl.value);
+      populatePackages(itemEl.value);
+      updateTotals();
+    });
+    pkgEl.addEventListener('change', updateTotals);
+    qtyEl.addEventListener('input', updateTotals);
+
+    // initialize on load
+    populateFlavors(itemEl.value);
+    populatePackages(itemEl.value);
+    updateTotals();
+
+    // ===== EmailJS send =====
+    document.getElementById("orderForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      // Replace machine keys with pretty labels for email (optional)
+      const prettyItem = ITEM_LABELS[itemEl.value];
+      // Add a hidden friendly item label so it shows up in your email template if you include {{item_label}}
+      let friendly = document.getElementById('item_label');
+      if(!friendly){ friendly = document.createElement('input'); friendly.type='hidden'; friendly.id='item_label'; friendly.name='item_label'; this.appendChild(friendly); }
+      friendly.value = prettyItem;
+
+      emailjs.sendForm("service_zujccop", "template_3dwlecc", this)
+        .then(function () {
+          document.getElementById("orderMessage").textContent =
+            "✅ Order sent! We’ll reach out by email to confirm delivery & payment.";
+          document.getElementById("orderForm").reset();
+          // reset defaults after clear
+          populateFlavors(itemEl.value);
+          populatePackages(itemEl.value);
+          updateTotals();
+        }, function (error) {
+          document.getElementById("orderMessage").textContent =
+            "❌ Something went wrong sending your order. Please try again.";
+          console.log("EmailJS error:", error);
+        });
+    });
+  </script>
+</body>
+</html>
